@@ -1,31 +1,42 @@
-import { ListItemButton } from '@mui/material'
 import React from 'react'
-import {ListItemText} from '@mui/material'
 import { books } from '../../data';
-import bl from '../textfeld/Textfeld';
 
-const Bücher = (props) => {
+const getFilteredBooks = (search, available) => {
+  let booklist = []
 
-    let suchwort = props.suchwort;
+  if (typeof search === "undefined" || search === "") {
+    booklist = books
+  } else {
+    booklist = books.filter(book => book.autor.includes(search) || book.titel.includes(search) || book.isbn === search)
+  }
 
-    let nbl=[];
-      
-    for (let i = 0; i < books.length; i++) {
+  if (available === false) {
+    return booklist
+  }
+  
+  return booklist.filter(book => book.lieferbar === true)
+}
 
-        if (
-            ((books[i].autor == props.suchwort || books[i].titel == props.suchwort|| books[i].isbn == props.suchwort) && (!props.checkb || (props.checkb && books[i].lieferbar)))
-        ) {
+const Bücher = props => {
+  const search = props.suchwort
+  const available = props.checkb
+  const booklist = getFilteredBooks(search, available)
 
-            nbl.push(<ul key={i} > <li className="btitel">{books[i].autor}:&nbsp;
-                {books[i].titel} &nbsp;
-                {books[i].preis} Euro</li></ul>);
-
-        }
+  const htmlBookList = booklist.map(book =>
+    { 
+      return (
+        <ul key={book.isbn}>
+          <li className="btitel">
+            {book.autor}: {book.titel} {book.preis} Euro
+          </li>
+        </ul>
+      )
     }
+  );
 
   return (
-    <div className="mx-auto ">
-       {nbl}
+    <div className="mx-auto">
+      {htmlBookList}
     </div>
   )
 }
