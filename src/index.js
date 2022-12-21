@@ -1,4 +1,3 @@
-import Knopf from './components/button/Knopf';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Bild from './components/bild/Bild';
@@ -6,8 +5,6 @@ import BreadCumpTrail from './components/breadcrumbtrail/BreadCumpTrail';
 import Textfeld from './components/textfeld/Textfeld';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Checkboxx from './components/checkbox/Checkbox';
-import Bücher from './components/bücher/Bücher';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +12,6 @@ root.render(
     <Bild />
     <BreadCumpTrail />
     <Textfeld />
-    <Bücher />
   </React.StrictMode>
 );
 
